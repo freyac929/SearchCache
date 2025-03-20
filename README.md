@@ -1,6 +1,6 @@
 # 搜迹SearchCache
 
-![搜迹SearchCache Logo](搜迹SearchCache/images/icon128.png)
+![搜迹SearchCache Logo](搜迹SearchCache/images/icon.svg)
 
 ## 简介
 
