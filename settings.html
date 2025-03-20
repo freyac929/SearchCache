@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>搜迹SearchCache - 设置</title>
+  <style>
+    :root {
+      --primary-color: #007AFF;
+      --secondary-color: #5AC8FA;
+      --background-color: #FFFFFF;
+      --surface-color: #F2F2F7;
+      --text-primary: #000000;
+      --text-secondary: #8E8E93;
+      --text-tertiary: #C7C7CC;
+      --border-color: #E5E5EA;
+      --success-color: #34C759;
+      --danger-color: #FF3B30;
+      --focus-ring: 0 0 0 3px rgba(0, 122, 255, 0.3);
+      --border-radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    body {
+      width: 360px;
+      max-height: 500px;
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transform: translateZ(0);
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      mask-image: radial-gradient(white, black);
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: var(--border-radius);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .back-btn:hover {
+      background-color: rgba(0, 122, 255, 0.1);
+    }
+
+    .back-btn:active {
+      background-color: rgba(0, 122, 255, 0.2);
+    }
+
+    .back-btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    .settings-section {
+      margin-bottom: 24px;
+      background-color: var(--surface-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      padding: 0 4px;
+      color: var(--text-secondary);
+    }
+
+    .setting-item {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .setting-item:last-child {
+      border-bottom: none;
+    }
+
+    .setting-label {
+      font-size: 15px;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .setting-description {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+
+    select, input {
+      background-color: var(--background-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 14px;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      width: 80px;
+      min-height: 36px;
+      text-align: center;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
+      padding-right: 28px;
+    }
+
+    select option {
+      text-align: center;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      box-shadow: var(--focus-ring);
+      border-color: var(--primary-color);
+    }
+    
+    .export-btn {
+      background-color: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 14px;
+      color: var(--primary-color);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 80px;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .export-btn:hover {
+      background-color: rgba(0, 122, 255, 0.1);
+    }
+    
+    .export-btn:active {
+      background-color: rgba(0, 122, 255, 0.2);
+    }
+
+    .save-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+
+    .save-btn:hover {
+      background-color: #0062CC;
+    }
+
+    .save-btn:active {
+      background-color: #004F99;
+    }
+
+    .save-btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .toast.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* 深色模式支持 */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background-color: #1C1C1E;
+        --surface-color: #2C2C2E;
+        --text-primary: #FFFFFF;
+        --text-secondary: #8E8E93;
+        --text-tertiary: #48484A;
+        --border-color: #38383A;
+      }
+
+      select, input {
+        background-color: #3A3A3C;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 class="title">设置</h1>
+    <button class="back-btn" id="backBtn" aria-label="返回">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      返回
+    </button>
+  </div>
+  
+  <div class="settings-container">
+    <h2 class="section-title">数据设置</h2>
+    <div class="settings-section">
+      <div class="setting-item">
+        <div>
+          <div class="setting-label">保存周期</div>
+          <div class="setting-description">设置自动清理时间</div>
+        </div>
+        <select id="retentionPeriod">
+          <option value="1">1天</option>
+          <option value="7">7天</option>
+          <option value="30">30天</option>
+          <option value="90">90天</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div>
+          <div class="setting-label">导出记录</div>
+          <div class="setting-description">将所有记录导出为文本文件</div>
+        </div>
+        <button id="exportBtn" class="export-btn">导出</button>
+      </div>
+    </div>
+    
+    <h2 class="section-title">快捷键设置</h2>
+    <div class="settings-section">
+      <div class="setting-item">
+        <div>
+          <div class="setting-label">设置插件快捷键</div>
+          <div class="setting-description">快速打开/关闭搜迹</div>
+        </div>
+        <a href="chrome://extensions/shortcuts" target="_blank" class="export-btn" id="shortcutLink" style="display: flex; align-items: center; justify-content: center; width: 80px; height: 36px; padding: 0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+            <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+    
+    <button class="save-btn" id="saveBtn">保存设置</button>
+  </div>
+  
+  <div class="toast" id="toast" role="status" aria-live="polite">设置已保存</div>
+  
+  <script src="settings.js"></script>
+</body>
+</html>
